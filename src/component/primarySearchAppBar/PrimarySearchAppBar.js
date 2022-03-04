@@ -156,8 +156,8 @@ export default function PrimarySearchAppBar() {
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+    <Box sx={{ flexGrow: 1}}>
+      <AppBar position='fixed'>
         <Toolbar>
           <IconButton
             size="large"
@@ -177,8 +177,8 @@ export default function PrimarySearchAppBar() {
             To Do
           </Typography>
 
-          <Box sx={{ flexGrow: 1 , display:'flex', justifyContent:'center',  flexWrap: 'wrap'}}>
-            <Search  sx={{minWidth:'40%'}}>
+          <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Search sx={{ minWidth: '40%' }}>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>

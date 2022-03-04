@@ -5,12 +5,8 @@ import PersistentDrawerLeft from '../../component/mainContentWithDrawer/Persiste
 export default function Home() {
     return (
         <>
-        <PrimarySearchAppBar />
-        <PersistentDrawerLeft />
-           
-            
-
-
+        <div><PrimarySearchAppBar /></div>
+        <div><PersistentDrawerLeft /></div>
         </>
     )
 }
