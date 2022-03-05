@@ -24,7 +24,7 @@ import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import Input from '@mui/material/Input';
 import { border, height } from '@mui/system';
 import Button from '@mui/material/Button';
-import RowsGrid from '../dataGrid/RowGrid';
+import StickyHeadTable from '../dataGrid/StickyHeadTable';
 
 const drawerWidth = 240;
 const ariaLabel = { 'aria-label': 'description' };
@@ -182,19 +182,8 @@ export default function PersistentDrawerLeft() {
           </Box>
         </Box>
         <Box>
-          <Box component="div" sx={{
-            backgroundColor: '#EAEAEA', height: 'fit-content', marginLeft: '230px',
-            borderRadius: '5px', boxSizing: 'border-box'
-          }}>
-            <Input placeholder="Add a task" inputProps={ariaLabel} sx={{
-              m: 2, p: 1, mx: { xs: 1, md: 5 },
-              mr: 0, backgroundColor: 'white', width: '87%',
-            }} />
-            <Button variant="text">Add</Button>
-          </Box>
-          <Box component="div" sx={{ height: '61vh', marginLeft: '230px', border: '3px solid', overflow: 'auto' }}>
-           <RowsGrid />
-          </Box>
+          
+          <StickyHeadTable />
         </Box>
 
       </Main>
