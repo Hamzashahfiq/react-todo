@@ -21,8 +21,13 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import PermContactCalendarOutlinedIcon from '@mui/icons-material/PermContactCalendarOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
+import Input from '@mui/material/Input';
+import { border, height } from '@mui/system';
+import Button from '@mui/material/Button';
+import RowsGrid from '../dataGrid/RowGrid';
 
 const drawerWidth = 240;
+const ariaLabel = { 'aria-label': 'description' };
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -42,6 +47,21 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
     }),
   }),
 );
+
+// custome js for date 
+
+let date = new Date();
+let day = date.getDay();
+let dayName = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thusrday', 'Friday', 'Saturday'].map((item, index) => {
+  return index === day ? item : null;
+})
+let month = date.getMonth();
+let monthName = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].map((item, index) => {
+  return index === month ? item : null;
+})
+let currentDate = date.getDate();
+
+
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -87,7 +107,7 @@ export default function PersistentDrawerLeft() {
       <CssBaseline />
       {/* <AppBar position="fixed" open={open}>
         <Toolbar> */}
-      <Box  style={{ position: "fixed", top: "70px", left: "30px" }}>
+      <Box style={{ position: "fixed", top: "70px", left: "30px" }}>
         <IconButton
           color="inherit"
           aria-label="open drawer"
@@ -154,8 +174,26 @@ export default function PersistentDrawerLeft() {
       <Main open={open}>
 
         <Box style={{ marginLeft: '245px', marginTop: '30px' }}>
-        <Box component= "h3">
+          <Box component="h3" mb='0'>
             My Day
+          </Box>
+          <Box component="p" sx={{ typography: 'subtitle2', fontWeight: 'light', marginTop: '5px', boxSizing: 'border-box' }}>
+            {dayName},{monthName} {currentDate}
+          </Box>
+        </Box>
+        <Box>
+          <Box component="div" sx={{
+            backgroundColor: '#EAEAEA', height: 'fit-content', marginLeft: '230px',
+            borderRadius: '5px', boxSizing: 'border-box'
+          }}>
+            <Input placeholder="Add a task" inputProps={ariaLabel} sx={{
+              m: 2, p: 1, mx: { xs: 1, md: 5 },
+              mr: 0, backgroundColor: 'white', width: '87%',
+            }} />
+            <Button variant="text">Add</Button>
+          </Box>
+          <Box component="div" sx={{ height: '61vh', marginLeft: '230px', border: '3px solid', overflow: 'auto' }}>
+           <RowsGrid />
           </Box>
         </Box>
 
