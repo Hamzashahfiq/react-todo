@@ -125,7 +125,6 @@ export default function PersistentDrawerLeft() {
         </Toolbar>
       </AppBar> */}
       <Drawer
-        style={{ position: "fixed" }}
         sx={{
           width: drawerWidth,
           flexShrink: 0,
