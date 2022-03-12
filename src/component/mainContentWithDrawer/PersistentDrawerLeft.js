@@ -4,14 +4,10 @@ import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -21,10 +17,7 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import PermContactCalendarOutlinedIcon from '@mui/icons-material/PermContactCalendarOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
-import Input from '@mui/material/Input';
-import { border, height } from '@mui/system';
-import Button from '@mui/material/Button';
-import StickyHeadTable from '../dataGrid/StickyHeadTable';
+import InputTask from '../inputTask/InputTask';
 
 const drawerWidth = 240;
 const ariaLabel = { 'aria-label': 'description' };
@@ -91,7 +84,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function PersistentDrawerLeft() {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -103,11 +96,11 @@ export default function PersistentDrawerLeft() {
   const iconList = [<WbSunnyOutlinedIcon />, <StarBorderOutlinedIcon />, <CalendarTodayIcon />, <PermContactCalendarOutlinedIcon />, <HomeOutlinedIcon />]
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', marginLeft: '30' }} >
+    <Box sx={{ display: 'flex', flexDirection: 'column'}} >
       <CssBaseline />
       {/* <AppBar position="fixed" open={open}>
         <Toolbar> */}
-      <Box style={{ position: "fixed", top: "70px", left: "30px" }}>
+      <Box sx={{ position: "fixed", top: "70px", left: {xs:"20px",sm:'28px' }}}>
         <IconButton
           color="inherit"
           aria-label="open drawer"
@@ -138,8 +131,8 @@ export default function PersistentDrawerLeft() {
         anchor="left"
         open={open}
       >
-        <DrawerHeader style={{ marginTop: '60px', marginRight: '175px' }}>
-          <Box style={{ marginRight: '100px !important' }}>
+        <DrawerHeader sx={{ marginTop: '60px', marginRight: {xs:'184px',sm:'175px' }}}>
+          <Box>
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === 'ltr' ? <MenuOutlinedIcon /> : <MenuOutlinedIcon />}
             </IconButton>
@@ -169,22 +162,19 @@ export default function PersistentDrawerLeft() {
           ))}
         </List> */}
       </Drawer>
-      <DrawerHeader />
       <Main open={open}>
-
-        <Box style={{ marginLeft: '245px', marginTop: '30px' }}>
+        <DrawerHeader />
+        <Box sx={{ marginLeft: {xs:'234px',sm:'242px'}, marginTop: '30px'}}>
           <Box component="h3" mb='0'>
             My Day
           </Box>
           <Box component="p" sx={{ typography: 'subtitle2', fontWeight: 'light', marginTop: '5px', boxSizing: 'border-box' }}>
             {dayName},{monthName} {currentDate}
           </Box>
+          <Box>
+            <InputTask />
+          </Box>
         </Box>
-        <Box>
-          
-          <StickyHeadTable />
-        </Box>
-
       </Main>
     </Box>
   );

@@ -33,16 +33,7 @@ export default function RowsGrid() {
 
   return (
     <Box>
-      <Box component="div" sx={{
-        backgroundColor: '#EAEAEA', height: 'fit-content', marginLeft: '230px',
-        borderRadius: '5px', boxSizing: 'border-box', width: '84%', marginRight: '10px'
-      }}>
-        <Input placeholder="Add a task" onChange={(e) => setTaskDetail(e.target.value)} value={taskDetail} inputProps={ariaLabel} sx={{
-          m: 2, p: 1, mx: { xs: 1, md: 5 },
-          mr: 0, backgroundColor: 'white', width: '84%'
-        }} />
-        <Button variant="text" onClick={addHandler}>Add</Button>
-      </Box>
+    
       <div style={{ marginLeft: '230px', height: '440px', width: '84%', boxSizing: 'border-box' }}>
 
         <DataGrid
