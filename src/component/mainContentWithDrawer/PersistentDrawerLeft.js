@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -18,6 +19,12 @@ import PermContactCalendarOutlinedIcon from '@mui/icons-material/PermContactCale
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import InputTask from '../inputTask/InputTask';
+import { v4 as uuidv4 } from 'uuid';
+import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
+import Grid from '@mui/material/Grid';
+import EditOffTwoToneIcon from '@mui/icons-material/EditOffTwoTone';
+
+
 
 const drawerWidth = 240;
 const ariaLabel = { 'aria-label': 'description' };
@@ -95,12 +102,30 @@ export default function PersistentDrawerLeft() {
   };
   const iconList = [<WbSunnyOutlinedIcon />, <StarBorderOutlinedIcon />, <CalendarTodayIcon />, <PermContactCalendarOutlinedIcon />, <HomeOutlinedIcon />]
 
+  const [inputTask, setInputTask] = useState('')
+  const [taskData, setTaskData] = useState([])
+
+  const onSubmitHandler = () => {
+    if (!inputTask) {
+      alert("please add some task in input field")
+      return
+    }
+    let task = {
+      id: uuidv4(),
+      taskDetail: inputTask
+    }
+    setTaskData([task, ...taskData])
+    setInputTask('')
+  }
+
+
+
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column'}} >
+    <Box sx={{ display: 'flex', flexDirection: 'column',maxHeight:'100vh' ,overflow:'auto',border:5}} >
       <CssBaseline />
       {/* <AppBar position="fixed" open={open}>
         <Toolbar> */}
-      <Box sx={{ position: "fixed", top: "70px", left: {xs:"20px",sm:'28px' }}}>
+      <Box sx={{ position: "fixed", top: "70px", left: { xs: "20px", sm: '28px' } }}>
         <IconButton
           color="inherit"
           aria-label="open drawer"
@@ -131,7 +156,7 @@ export default function PersistentDrawerLeft() {
         anchor="left"
         open={open}
       >
-        <DrawerHeader sx={{ marginTop: '60px', marginRight: {xs:'184px',sm:'175px' }}}>
+        <DrawerHeader sx={{ marginTop: '60px', marginRight: { xs: '184px', sm: '175px' } }}>
           <Box>
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === 'ltr' ? <MenuOutlinedIcon /> : <MenuOutlinedIcon />}
@@ -164,17 +189,34 @@ export default function PersistentDrawerLeft() {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        <Box sx={{ marginLeft: {xs:'234px',sm:'242px'}, marginTop: '30px'}}>
-          <Box component="h3" mb='0'>
-            My Day
+          <Box sx={{ marginLeft: { xs: '234px', sm: '242px' }, mt: 1, border: 3 }}>
+            <Box component="h3" mb='0'>
+              My Day
+            </Box>
+            <Box component="p" sx={{ typography: 'subtitle2', fontWeight: 'light', marginTop: '5px' }}>
+              {dayName},{monthName} {currentDate}
+            </Box>
+            <Box>
+              <InputTask inputTask={inputTask} setInputTask={setInputTask} onSubmitHandler={onSubmitHandler} />
+            </Box>
           </Box>
-          <Box component="p" sx={{ typography: 'subtitle2', fontWeight: 'light', marginTop: '5px', boxSizing: 'border-box' }}>
-            {dayName},{monthName} {currentDate}
+          <Box sx={{ marginLeft: { xs: '234px', sm: '242px' }, px: 4, maxHeight:'100%', overflow: "auto", border: 1 }} >
+            {
+              taskData.map((item) => {
+                return (<Box sx={{ borderBottom: 1, wordWrap: 'break-word', borderColor: '#e0e0e0', width: "100%", minHeight: "fit-content" }}><Grid container> <Grid item xs={12} md={10} sx={{ py: 2, px: 2 }}>{item.taskDetail}</Grid>
+                  <Grid item xs={6} md={1} sx={{ py: { xs: 0, md: 1 }, borderTop: { xs: 1, md: 0 }, borderColor: { xs: '#e0e0e0', md: 'none' } }}>
+                    <IconButton sx={{ p: 0, m: 0, px: 1, py: { xs: 1, md: 1 }, float: 'right' }} aria-label="Update">
+                      <EditOffTwoToneIcon sx={{ color: '#003c8f' }} />
+                    </IconButton></Grid>
+                  <Grid item xs={6} md={1} sx={{ py: { xs: 0, md: 1 }, borderTop: { xs: 1, md: 0 }, borderColor: { xs: '#e0e0e0', md: 'none' } }}>
+                    <IconButton sx={{ p: 0, m: 0, px: 1, py: { xs: 1, md: 1 }, }} aria-label="delete">
+                      <DeleteTwoToneIcon sx={{ color: '#ba000d' }} />
+                    </IconButton>
+                  </Grid></Grid>
+                </Box>)
+              })
+            }
           </Box>
-          <Box>
-            <InputTask />
-          </Box>
-        </Box>
       </Main>
     </Box>
   );
