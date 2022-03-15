@@ -18,7 +18,6 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import PermContactCalendarOutlinedIcon from '@mui/icons-material/PermContactCalendarOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
-import InputTask from '../inputTask/InputTask';
 import { v4 as uuidv4 } from 'uuid';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import Grid from '@mui/material/Grid';

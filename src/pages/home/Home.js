@@ -1,26 +1,30 @@
 import React from 'react'
 import PrimarySearchAppBar from '../../component/navBar/PrimarySearchAppBar';
-import '../../App.css';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import InputTask from '../../component/inputTask/InputTask';
 
 export default function Home() {
 
     return (
-        <Box className='mpZero'>
-            <Box className='mpZero' sx={{ height: '100vh', position: 'relative', border: 3 }} >
+        <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+            <Box >
                 <PrimarySearchAppBar />
-                <Box sx={{ width: '100%', mt: { xs: 6, md: '61px' }, position: 'absolute', }}>
-                    <Grid container sx={{ height: '100vh' }}>
-                        <Grid item xs={12} sm={3}>
-                            <Box sx={{ height:'100%',bgcolor: '#EAEAEA',minWidth:'fit-content',border: 3}}>hallo</Box>
-                        </Grid>
+            </Box>
+            <Box sx={{ flex: '1 0 auto' }}>
+                <Grid container sx={{ height: '100vh' }}>
+                    <Grid item xs={12} sm={3}>
+                        <Box sx={{ height: '100%',border:1, bgcolor: '#EAEAEA', pt: '70px', px: 1, boxSizing: 'border-box' }}>
 
-                        <Grid item xs={12} sm={9}>
-                            <Box sx={{height:'100%',minWidth:'fit-content' ,border: 3}}>hallo222</Box>
-                        </Grid>
+                            hallo</Box>
                     </Grid>
-                </Box>
+
+                    <Grid item xs={12} sm={9}>
+                        <Box sx={{ height: '100%',border:1, minWidth: 'fit-content', px: 1, pt: '70px', boxSizing: 'border-box' }}>
+                            <InputTask />
+                        </Box>
+                    </Grid>
+                </Grid>
             </Box>
         </Box>
     )
