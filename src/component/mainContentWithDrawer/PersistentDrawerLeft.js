@@ -121,11 +121,11 @@ export default function PersistentDrawerLeft() {
 
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column',maxHeight:'100vh' ,overflow:'auto',border:5}} >
+    <Box sx={{border:1}}>
       <CssBaseline />
       {/* <AppBar position="fixed" open={open}>
         <Toolbar> */}
-      <Box sx={{ position: "fixed", top: "70px", left: { xs: "20px", sm: '28px' } }}>
+      <Box sx={{ position: "fixed", top: "70px", left: { xs: "20px", sm: '28px' }, border:2 }}>
         <IconButton
           color="inherit"
           aria-label="open drawer"
@@ -189,7 +189,7 @@ export default function PersistentDrawerLeft() {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-          <Box sx={{ marginLeft: { xs: '234px', sm: '242px' }, mt: 1, border: 3 }}>
+          <Box sx={{ marginLeft: { xs: '234px', sm: '242px' }, mt: 2, border: 2 }}>
             <Box component="h3" mb='0'>
               My Day
             </Box>
@@ -200,7 +200,8 @@ export default function PersistentDrawerLeft() {
               <InputTask inputTask={inputTask} setInputTask={setInputTask} onSubmitHandler={onSubmitHandler} />
             </Box>
           </Box>
-          <Box sx={{ marginLeft: { xs: '234px', sm: '242px' }, px: 4, maxHeight:'100%', overflow: "auto", border: 1 }} >
+
+          <Box sx={{ marginLeft: { xs: '234px', sm: '242px' }, px: 4, maxHeight: { xs: '50vh', md: '60vh' }, overflow: "auto", border: 1, mt: { xs: 28, md: 22 }, mr: { xs: 0, md: 2 } }} >
             {
               taskData.map((item) => {
                 return (<Box sx={{ borderBottom: 1, wordWrap: 'break-word', borderColor: '#e0e0e0', width: "100%", minHeight: "fit-content" }}><Grid container> <Grid item xs={12} md={10} sx={{ py: 2, px: 2 }}>{item.taskDetail}</Grid>
