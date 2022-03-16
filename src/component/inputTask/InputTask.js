@@ -6,18 +6,18 @@ import Grid from '@mui/material/Grid';
 
 const ariaLabel = { 'aria-label': 'description' };
 
-export default function InputTask() {
+export default function InputTask({inputTask,setInputTask,onSubmitHandler}) {
     return (
         <>
                 <Grid container justifyContent="center" sx={{backgroundColor: '#EAEAEA',borderRadius: '5px',boxSizing: 'border-box',minWidth:'fit-content'}}>
                     <Grid item xs={10}>
-                        <Input placeholder="Add a task"  inputProps={ariaLabel}
+                        <Input placeholder="Add a task" onChange={(e)=>setInputTask(e.target.value)} value={inputTask} inputProps={ariaLabel}
                             sx={{
                                 m:1,p: 1, backgroundColor: 'white', width: '100%',boxSizing: 'border-box'
                             }} />
                     </Grid>
                     <Grid item xs={11} md={1}  sx={{textAlign: 'center', p:'5px',m:1,boxSizing: 'border-box' }}>
-                        <Button variant="outlined" >Add</Button>
+                        <Button onClick={onSubmitHandler} variant="outlined" >Add</Button>
                     </Grid>
                 </Grid>
         </>
