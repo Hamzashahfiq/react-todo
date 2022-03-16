@@ -10,6 +10,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
+import SideNavBar from '../../component/sideNavBar/SideNavBar'
 
 let date = new Date();
 let day = date.getDay();
@@ -63,6 +64,7 @@ export default function Home() {
                 {openLeft ?
                     <Box sx={{ height: '100%', width: '20%', bgcolor: '#EAEAEA', pt: '70px', px: 1, boxSizing: 'border-box' }}>
                         <IconBtn icon={<MenuIcon />} onClickHandler={leftDivHandler} btnStyle={{ marginLeft: { xs: '0', sm: '7px' } }} />
+                        <SideNavBar />
                     </Box> :
                     <Box sx={{ height: '100%', display: 'none', width: '20%', bgcolor: '#EAEAEA', pt: '70px', px: 1, boxSizing: 'border-box' }}>
                         <IconBtn icon={<MenuIcon />} onClickHandler={leftDivHandler} btnStyle={{ marginLeft: { xs: '0', sm: '7px' } }} />
