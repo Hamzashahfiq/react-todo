@@ -1,34 +1,35 @@
 import React from 'react'
 import { SideBarData } from '../../constant/SideBarData';
-
+import './SideNavBar.css'
 import Box from '@mui/material/Box';
 
 
 export default function SideNavBar() {
-    console.log(SideBarData)
     return (
-        <div>
-            {
-                SideBarData.map((item, index) => {
-                    return (
-                        <Box key={index}>
+        <>
+            <Box sx={{ mt: 3 }}>
+                {
+                    SideBarData.map((item, index) => {
+                        return (
+                            <Box key={index} >
+                                <a href='#' className='sideBarLink' >
+                                    <Box component='ul' sx={{ px: 2, pt:1,my:0 }}>
+                                        <Box component='li' sx={{ listStyleType: 'none', mx: 0, my: 0, position: 'relative' }}>
 
-                            <Box component='ul' sx={{ border: 1, px: 2 }}>
-                                <Box component='li' sx={{ listStyleType: 'none', mx: 0, border: 1 }}>
-                                    <Box component='a'>
-                                        <Box component='span'>
-                                            {item.icon}
-                                        </Box>
-                                        <Box component='span'>
-                                            {item.name }
+                                            <Box component='span' sx={{ position: 'absolute', left: -2 }} >
+                                                {item.icon}
+                                            </Box>
+                                            <Box className='sideBarText' component='span' sx={{ mb: 1, typography: 'subtitle2', mx: 6 }}>
+                                                {item.name}
+                                            </Box>
                                         </Box>
                                     </Box>
-                                </Box>
+                                </a>
                             </Box>
-                        </Box>
-                    )
-                })
-            }
-        </div>
+                        )
+                    })
+                }
+            </Box>
+        </>
     )
 }

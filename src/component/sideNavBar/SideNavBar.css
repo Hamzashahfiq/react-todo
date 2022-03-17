@@ -1,0 +1,13 @@
+.sideBarLink {
+     text-decoration: none;
+     color: #34373D;
+}
+.sideBarLink ul:hover {
+    background-color: white;
+}
+.sideBarLink ul:active {
+    background-color: #d2d8db;
+}
+.sideBarText{
+    display: inline-block;
+}

@@ -6,7 +6,7 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 
 export const SideBarData = [
     {
-        name: 'My day',
+        name: 'My Day',
         icon: <LightModeOutlinedIcon />
     },
     {
