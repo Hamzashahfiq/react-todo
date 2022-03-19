@@ -2,6 +2,7 @@ import React from 'react'
 import { SideBarData } from '../../constant/SideBarData';
 import './SideNavBar.css'
 import Box from '@mui/material/Box';
+import {Link } from "react-router-dom";
 
 
 export default function SideNavBar() {
@@ -13,7 +14,7 @@ export default function SideNavBar() {
                         return (
                             <Box key={index} >
                                 <a href='#' className='sideBarLink' >
-                                    <Box component='ul' sx={{ px: 2, pt:1,my:0 }}>
+                                <Link to={item.link}>  <Box component='ul' sx={{ px: 2, pt: 1, my: 0 }}>
                                         <Box component='li' sx={{ listStyleType: 'none', mx: 0, my: 0, position: 'relative' }}>
 
                                             <Box component='span' sx={{ position: 'absolute', left: -2 }} >
@@ -23,7 +24,7 @@ export default function SideNavBar() {
                                                 {item.name}
                                             </Box>
                                         </Box>
-                                    </Box>
+                                    </Box></Link>
                                 </a>
                             </Box>
                         )

@@ -14,6 +14,9 @@ import SideNavBar from '../../component/sideNavBar/SideNavBar'
 import { styled } from '@mui/material/styles';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
+import Paper from '@mui/material/Paper';
+import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
+import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 
 
 // for tooltip
@@ -170,7 +173,7 @@ export default function Home() {
                         </Box>
                         <InputTask inputTask={inputTask} setInputTask={setInputTask} updateIs={updateIs} updateHandler={updateHandler} onSubmitHandler={onSubmitHandler} />
                     </Box>
-                    <Box sx={{ px: 4, overflowY: 'auto', height: {xs:'50vh',md:'63vh'}}} >
+                    <Box sx={{ px: 4, overflowY: 'auto', height: { xs: '50vh', md: '63vh' } }} >
                         <Box component='h4'> Tasks  </Box>
                         {
                             taskData.map((item) => {
@@ -179,7 +182,7 @@ export default function Home() {
                                         <Grid key={item.id} container sx={{ borderBottom: 1, wordWrap: 'break-word', borderColor: '#e0e0e0', minHeight: "fit-content", pb: 1 }}>
 
                                             <Grid item xs={1} md={1}><BootstrapTooltip title="Mark as completed" placement="top"><Checkbox onChange={() => onChangeHandler(item)} /></BootstrapTooltip></Grid>
-                                            <Grid item xs={12} md={9} sx={{ pt: 1,color:'black', textAlign:'left' }}>{item.taskDetail}</Grid>
+                                            <Grid item xs={12} md={9} sx={{ pt: 1, color: 'black', textAlign: 'left' }}>{item.taskDetail}</Grid>
                                             <Grid item xs={12} md={2}>
                                                 <Tooltip title="Update" placement="bottom"><IconButton onClick={() => onUpdate(item)} aria-label="delete" color="primary"> <EditIcon /></IconButton></Tooltip>
                                                 <Tooltip title="Delete" placement="bottom"><IconButton onClick={() => onDeleteHandler(item.id)} aria-label="delete" color="error"><DeleteIcon /></IconButton></Tooltip>
@@ -206,7 +209,7 @@ export default function Home() {
                                         <Button sx={{ display: 'inline-block', width: '100%', m: 0, p: 0 }}>
                                             <Grid key={item.id} container sx={{ borderBottom: 1, wordWrap: 'break-word', borderColor: '#e0e0e0', minHeight: "fit-content", pb: 1 }}>
                                                 <Grid item xs={12} md={1} ><BootstrapTooltip title="Mark as not completed" placement="top" ><Checkbox defaultChecked onChange={() => onChangeCompleteHandler(item)} /></BootstrapTooltip></Grid>
-                                                <Grid item xs={12} md={11} sx={{ pt: 1,color:'black', textAlign:'left' }}><del>{item.taskDetail}</del></Grid>
+                                                <Grid item xs={12} md={11} sx={{ pt: 1, color: 'black', textAlign: 'left' }}><del>{item.taskDetail}</del></Grid>
                                             </Grid>
                                         </Button>
                                     )
@@ -216,9 +219,31 @@ export default function Home() {
                         </Box>
                     </Box>
                 </Box>
-                <Box sx={{ height: '100%', width: '25%', px: 1, overflowX: 'auto', pt: '80px', boxSizing: 'border-box', bgcolor: '#EAEAEA' }}>
-                    fsadlkfdjasls;fjlajlfasfasdfasdfadsf
-                </Box>
+                {/* <Box sx={{ height: '100%', width: '200px', px: 1, overflowX: 'auto', pt: '80px', boxSizing: 'border-box', bgcolor: '#EAEAEA' }}>
+                   <Box>
+
+                       <Paper >
+                            <Box component='h4' > <Checkbox /> Test </Box>
+                            <Box component='p' sx={{pl:1,position:'relative' }} > <AddBoxOutlinedIcon /><a href='#' style={{position:'absolute',top:-1,left:'50px', textDecoration:'none',display:'inline-Block',}}>Add step</a></Box>
+                       </Paper>
+                       <Paper >
+                            <Box component='h4' sx={{p:2,pl:1,position:'relative' }} > <LightModeOutlinedIcon /> Test </Box>
+                           
+                       </Paper>
+                       <Paper >
+                            <Box component='h4' > <Checkbox /> Test </Box>
+                            <Box component='p' sx={{pl:1,position:'relative' }} > <AddBoxOutlinedIcon /><a href='#' style={{position:'absolute',top:-1,left:'50px', textDecoration:'none',display:'inline-Block',}}>Add step</a></Box>
+                       </Paper>
+                       <Paper >
+                            <Box component='h4'  > <Checkbox /> Test </Box>
+                            <Box component='p' sx={{pl:1,position:'relative' }} > <AddBoxOutlinedIcon /><a href='#' style={{position:'absolute',top:-1,left:'50px', textDecoration:'none',display:'inline-Block',}}>Add step</a></Box>
+                       </Paper>
+                       <Paper >
+                            <Box component='h4' > <Checkbox /> Test </Box>
+                            <Box component='p' sx={{pl:1,position:'relative' }} > <AddBoxOutlinedIcon /><a href='#' style={{position:'absolute',top:-1,left:'50px', textDecoration:'none',display:'inline-Block',}}>Add step</a></Box>
+                       </Paper>
+                   </Box>
+                </Box> */}
             </Box>
         </Box >
     )

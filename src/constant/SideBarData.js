@@ -7,22 +7,27 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 export const SideBarData = [
     {
         name: 'My Day',
-        icon: <LightModeOutlinedIcon />
+        icon: <LightModeOutlinedIcon />,
+        link: '/'
     },
     {
         name: 'Important',
-        icon: <GradeOutlinedIcon />
+        icon: <GradeOutlinedIcon />,
+        link: '/important'
     },
     {
         name: 'Planned',
-        icon: <PermContactCalendarOutlinedIcon />
+        icon: <PermContactCalendarOutlinedIcon />,
+        link: '/planned'
     },
     {
         name: 'Assigned to me',
-        icon: <PermIdentityOutlinedIcon />
+        icon: <PermIdentityOutlinedIcon />,
+        link: '/assigned_to_me'
     },
     {
         name: 'Task',
-        icon: <HomeOutlinedIcon/>
+        icon: <HomeOutlinedIcon/>,
+        link: '/task'
     },
 ]
