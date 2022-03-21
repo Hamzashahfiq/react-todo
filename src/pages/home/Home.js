@@ -138,7 +138,13 @@ export default function Home() {
         setUpdateIs(true)
         alert('Changed to uncompleted task')
     }
-
+   const onDeleteCompletedHandler = (compTaskId) => {
+    let newTask = completeTask.filter((item) => item.id !== compTaskId)
+    setCompleteTask(newTask)
+    setInputTask('')
+    setUpdateIs(true)
+    alert('Completed task Deleted')
+   }
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh', width: '100%', boxSizing: 'border-box', position: 'fixed' }}>
             <Box >
@@ -173,7 +179,7 @@ export default function Home() {
                         </Box>
                         <InputTask inputTask={inputTask} setInputTask={setInputTask} updateIs={updateIs} updateHandler={updateHandler} onSubmitHandler={onSubmitHandler} />
                     </Box>
-                    <Box sx={{ px: 4, overflowY: 'auto', height: { xs: '50vh', md: '63vh' } }} >
+                    <Box sx={{ px: 4, overflowY: 'auto', height: { xs: '45vh', md: '63vh' } }} >
                         <Box component='h4'> Tasks  </Box>
                         {
                             taskData.map((item) => {
@@ -181,20 +187,11 @@ export default function Home() {
                                     <Button sx={{ display: 'inline-block', width: '100%', m: 0, p: 0, }}>
                                         <Grid key={item.id} container sx={{ borderBottom: 1, wordWrap: 'break-word', borderColor: '#e0e0e0', minHeight: "fit-content", pb: 1 }}>
 
-                                            <Grid item xs={1} md={1}><BootstrapTooltip title="Mark as completed" placement="top"><Checkbox onChange={() => onChangeHandler(item)} /></BootstrapTooltip></Grid>
-                                            <Grid item xs={12} md={9} sx={{ pt: 1, color: 'black', textAlign: 'left' }}>{item.taskDetail}</Grid>
-                                            <Grid item xs={12} md={2}>
+                                            <Grid item xs={12} md={1}><BootstrapTooltip title="Mark as completed" placement="top"><Checkbox onChange={() => onChangeHandler(item)} /></BootstrapTooltip></Grid>
+                                            <Grid item xs={10} md={9} sx={{ pt: 1, color: 'black', textAlign: 'left' }}>{item.taskDetail}</Grid>
+                                            <Grid item xs={2}>
                                                 <Tooltip title="Update" placement="bottom"><IconButton onClick={() => onUpdate(item)} aria-label="delete" color="primary"> <EditIcon /></IconButton></Tooltip>
                                                 <Tooltip title="Delete" placement="bottom"><IconButton onClick={() => onDeleteHandler(item.id)} aria-label="delete" color="error"><DeleteIcon /></IconButton></Tooltip>
-
-                                                {/* <Grid container spacing={3} justifyContent='center'>
-                                                <Grid item xs={1} md={4} ><Tooltip title="Update" placement="bottom"><IconButton onClick={() => onUpdate(item)} aria-label="delete" color="primary">
-                                                    <EditIcon />
-                                                </IconButton></Tooltip></Grid>
-                                                <Grid item xs={1} md={4}><Tooltip title="Delete" placement="bottom"><IconButton onClick={() => onDeleteHandler(item.id)} aria-label="delete" color="error">
-                                                    <DeleteIcon />
-                                                </IconButton></Tooltip></Grid>
-                                            </Grid> */}
                                             </Grid>
                                         </Grid>
                                     </Button>
@@ -209,7 +206,10 @@ export default function Home() {
                                         <Button sx={{ display: 'inline-block', width: '100%', m: 0, p: 0 }}>
                                             <Grid key={item.id} container sx={{ borderBottom: 1, wordWrap: 'break-word', borderColor: '#e0e0e0', minHeight: "fit-content", pb: 1 }}>
                                                 <Grid item xs={12} md={1} ><BootstrapTooltip title="Mark as not completed" placement="top" ><Checkbox defaultChecked onChange={() => onChangeCompleteHandler(item)} /></BootstrapTooltip></Grid>
-                                                <Grid item xs={12} md={11} sx={{ pt: 1, color: 'black', textAlign: 'left' }}><del>{item.taskDetail}</del></Grid>
+                                                <Grid item xs={11} md={10} sx={{ pt: 1, color: 'black', textAlign: 'left' }}><del>{item.taskDetail}</del></Grid>
+                                                <Grid item xs={1} sx={{p:1,textAlign:'left'}}>
+                                                    <Tooltip title="Delete" placement="bottom"><IconButton onClick={() => onDeleteCompletedHandler(item.id)} aria-label="delete" color="error"><DeleteIcon /></IconButton></Tooltip>
+                                                </Grid>
                                             </Grid>
                                         </Button>
                                     )

@@ -15,10 +15,8 @@ export default function Routing() {
                 <Route path="/planned" element={<Planned />} />
                 <Route path="/assigned_to_me" element={<AssignedToMe />} />
                 <Route path="/task" element={<Task />} />
-
-
             </Routes>
         </BrowserRouter>
-        // <div><Home /></div>
+        
     )
 }

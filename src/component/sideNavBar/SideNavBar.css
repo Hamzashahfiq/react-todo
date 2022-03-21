@@ -1,13 +1,17 @@
 .sideBarLink {
      text-decoration: none;
-     color: #34373D;
+     color: #000000;
 }
-.sideBarLink ul:hover {
-    background-color: white;
-}
-.sideBarLink ul:active {
-    background-color: #d2d8db;
+.sideBarLink li:hover {
+    background-color: rgb(255, 255, 255,0.7);
+ 
 }
 .sideBarText{
     display: inline-block;
+}
+
+.active{
+    background-color:#d1cbcb !important;
+    color: rgb(8, 69, 199);
+    opacity: 0.5;
 }
