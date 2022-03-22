@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import './Home.css'
 import PrimarySearchAppBar from '../../component/navBar/PrimarySearchAppBar';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -15,8 +16,19 @@ import { styled } from '@mui/material/styles';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
-import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
+import AddIcon from '@mui/icons-material/Add';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import EventNoteIcon from '@mui/icons-material/EventNote';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
+import {
+    useWindowSize,
+    useWindowWidth,
+    useWindowHeight,
+} from '@react-hook/window-size'
+
 
 
 // for tooltip
@@ -47,6 +59,8 @@ let currentDate = date.getDate();
 
 
 export default function Home() {
+    const [width, height] = useWindowSize()
+
     const [openLeft, setOpenLeft] = useState(true)
     const [inputTask, setInputTask] = useState('')
     const [taskData, setTaskData] = useState([])
@@ -138,13 +152,13 @@ export default function Home() {
         setUpdateIs(true)
         alert('Changed to uncompleted task')
     }
-   const onDeleteCompletedHandler = (compTaskId) => {
-    let newTask = completeTask.filter((item) => item.id !== compTaskId)
-    setCompleteTask(newTask)
-    setInputTask('')
-    setUpdateIs(true)
-    alert('Completed task Deleted')
-   }
+    const onDeleteCompletedHandler = (compTaskId) => {
+        let newTask = completeTask.filter((item) => item.id !== compTaskId)
+        setCompleteTask(newTask)
+        setInputTask('')
+        setUpdateIs(true)
+        alert('Completed task Deleted')
+    }
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh', width: '100%', boxSizing: 'border-box', position: 'fixed' }}>
             <Box >
@@ -180,38 +194,43 @@ export default function Home() {
                         <InputTask inputTask={inputTask} setInputTask={setInputTask} updateIs={updateIs} updateHandler={updateHandler} onSubmitHandler={onSubmitHandler} />
                     </Box>
                     <Box sx={{ px: 4, overflowY: 'auto', height: { xs: '45vh', md: '63vh' } }} >
-                        <Box component='h4'> Tasks  </Box>
+                        <Box component='h4' sx={{ my: 1, mb: 2 }}> Tasks  </Box>
                         {
                             taskData.map((item) => {
                                 return (
-                                    <Button sx={{ display: 'inline-block', width: '100%', m: 0, p: 0, }}>
-                                        <Grid key={item.id} container sx={{ borderBottom: 1, wordWrap: 'break-word', borderColor: '#e0e0e0', minHeight: "fit-content", pb: 1 }}>
+                                    <Grid key={item.id} className='hoverColor' container sx={{ borderBottom: 1, wordWrap: 'break-word', borderColor: '#e0e0e0', minHeight: "fit-content" }}>
 
-                                            <Grid item xs={12} md={1}><BootstrapTooltip title="Mark as completed" placement="top"><Checkbox onChange={() => onChangeHandler(item)} /></BootstrapTooltip></Grid>
-                                            <Grid item xs={10} md={9} sx={{ pt: 1, color: 'black', textAlign: 'left' }}>{item.taskDetail}</Grid>
-                                            <Grid item xs={2}>
-                                                <Tooltip title="Update" placement="bottom"><IconButton onClick={() => onUpdate(item)} aria-label="delete" color="primary"> <EditIcon /></IconButton></Tooltip>
-                                                <Tooltip title="Delete" placement="bottom"><IconButton onClick={() => onDeleteHandler(item.id)} aria-label="delete" color="error"><DeleteIcon /></IconButton></Tooltip>
-                                            </Grid>
+                                        <Grid item xs={1} sx={{ minWidth: '30px', textAlign: 'right', }}><BootstrapTooltip title="Mark as completed" placement="top"><Checkbox sx={{ '& .MuiSvgIcon-root': { fontSize: 19 } }} onChange={() => onChangeHandler(item)} /></BootstrapTooltip></Grid>
+                                        <Grid item xs={6} sm={7} md={9} sx={{ color: 'black', textAlign: 'left' }}>
+                                            <Box>
+                                                <Box component='button' sx={{ display: 'inline-block', backgroundColor: 'inherit', border: 0, width: '100%', padding: '11px 5px', textAlign: 'left' }}>{item.taskDetail} </Box>
+                                            </Box>
                                         </Grid>
-                                    </Button>
+                                        <Grid item xs={4} sm={3} md={2} sx={{ textAlign: 'center' }}>
+                                            <Tooltip title="Update" placement="bottom"><IconButton onClick={() => onUpdate(item)} aria-label="delete" color="primary"> <EditIcon sx={{ fontSize: 19 }} /></IconButton></Tooltip>
+                                            <Tooltip title="Delete" placement="bottom"><IconButton onClick={() => onDeleteHandler(item.id)} aria-label="delete" color="error"><DeleteIcon sx={{ fontSize: 19 }} /></IconButton></Tooltip>
+                                        </Grid>
+
+                                    </Grid>
                                 )
                             })
                         }
                         <Box sx={{}}>
-                            <Box component='h4'> Completed  </Box>
+                            <Box component='h4' sx={{ my: 2 }}> Completed  </Box>
                             {
                                 completeTask.map((item) => {
                                     return (
-                                        <Button sx={{ display: 'inline-block', width: '100%', m: 0, p: 0 }}>
-                                            <Grid key={item.id} container sx={{ borderBottom: 1, wordWrap: 'break-word', borderColor: '#e0e0e0', minHeight: "fit-content", pb: 1 }}>
-                                                <Grid item xs={12} md={1} ><BootstrapTooltip title="Mark as not completed" placement="top" ><Checkbox defaultChecked onChange={() => onChangeCompleteHandler(item)} /></BootstrapTooltip></Grid>
-                                                <Grid item xs={11} md={10} sx={{ pt: 1, color: 'black', textAlign: 'left' }}><del>{item.taskDetail}</del></Grid>
-                                                <Grid item xs={1} sx={{p:1,textAlign:'left'}}>
-                                                    <Tooltip title="Delete" placement="bottom"><IconButton onClick={() => onDeleteCompletedHandler(item.id)} aria-label="delete" color="error"><DeleteIcon /></IconButton></Tooltip>
-                                                </Grid>
+                                        <Grid key={item.id} className='hoverColor' container sx={{ borderBottom: 1, wordWrap: 'break-word', borderColor: '#e0e0e0', minHeight: "fit-content", }}>
+                                            <Grid item xs={1} sx={{ minWidth: '30px', textAlign: 'right',}} ><BootstrapTooltip title="Mark as not completed" placement="top" ><Checkbox defaultChecked sx={{ '& .MuiSvgIcon-root': { fontSize: 19 } }} onChange={() => onChangeCompleteHandler(item)} /></BootstrapTooltip></Grid>
+                                            <Grid item xs={6} sm={7} md={9} sx={{ color: 'black', textAlign: 'left' }}>
+                                                <Box>
+                                                    <Box component='button' sx={{ display: 'inline-block', backgroundColor: 'inherit', border: 0, width: '100%', padding: '11px 5px', textAlign: 'left' }}><del>{item.taskDetail}</del></Box>
+                                                </Box>
                                             </Grid>
-                                        </Button>
+                                            <Grid xs={4} sm={3} md={2} sx={{ textAlign: 'center' }}>
+                                                <Tooltip title="Delete" placement="bottom"><IconButton onClick={() => onDeleteCompletedHandler(item.id)} aria-label="delete" color="error"><DeleteIcon sx={{ fontSize: 19 }} /></IconButton></Tooltip>
+                                            </Grid>
+                                        </Grid>
                                     )
                                 })
                             }
@@ -219,31 +238,38 @@ export default function Home() {
                         </Box>
                     </Box>
                 </Box>
-                {/* <Box sx={{ height: '100%', width: '200px', px: 1, overflowX: 'auto', pt: '80px', boxSizing: 'border-box', bgcolor: '#EAEAEA' }}>
-                   <Box>
+                {
+                    width >= 800 ?
+                        <Box sx={{ height: '100%', width: '320px', px: 1, overflowX: 'auto', pt: '65px', boxSizing: 'border-box', bgcolor: '#EAEAEA' }}>
+                            <Box>
 
-                       <Paper >
-                            <Box component='h4' > <Checkbox /> Test </Box>
-                            <Box component='p' sx={{pl:1,position:'relative' }} > <AddBoxOutlinedIcon /><a href='#' style={{position:'absolute',top:-1,left:'50px', textDecoration:'none',display:'inline-Block',}}>Add step</a></Box>
-                       </Paper>
-                       <Paper >
-                            <Box component='h4' sx={{p:2,pl:1,position:'relative' }} > <LightModeOutlinedIcon /> Test </Box>
-                           
-                       </Paper>
-                       <Paper >
-                            <Box component='h4' > <Checkbox /> Test </Box>
-                            <Box component='p' sx={{pl:1,position:'relative' }} > <AddBoxOutlinedIcon /><a href='#' style={{position:'absolute',top:-1,left:'50px', textDecoration:'none',display:'inline-Block',}}>Add step</a></Box>
-                       </Paper>
-                       <Paper >
-                            <Box component='h4'  > <Checkbox /> Test </Box>
-                            <Box component='p' sx={{pl:1,position:'relative' }} > <AddBoxOutlinedIcon /><a href='#' style={{position:'absolute',top:-1,left:'50px', textDecoration:'none',display:'inline-Block',}}>Add step</a></Box>
-                       </Paper>
-                       <Paper >
-                            <Box component='h4' > <Checkbox /> Test </Box>
-                            <Box component='p' sx={{pl:1,position:'relative' }} > <AddBoxOutlinedIcon /><a href='#' style={{position:'absolute',top:-1,left:'50px', textDecoration:'none',display:'inline-Block',}}>Add step</a></Box>
-                       </Paper>
-                   </Box>
-                </Box> */}
+                                <Paper >
+                                    <Box component='h4' > <Checkbox /> Test </Box>
+                                    <Box component='p' sx={{ pl: 1, position: 'relative', color: '#757de8' }} > <AddIcon /><Box style={{ position: 'absolute', left: '50px', display: 'inline-Block', }}>Add step</Box></Box>
+                                </Paper>
+                                <Paper >
+                                    <Box className='hoverColor' component='p' sx={{ px: 1, pt: 2, pb: 1, position: 'relative', color: '#757de8' }} > <LightModeOutlinedIcon /><Box style={{ position: 'absolute', left: '50px', display: 'inline-Block', }}>Add to My Day</Box></Box>
+
+                                </Paper>
+                                <Paper>
+                                    <Box className='hoverColor' component='p' sx={{ pl: 1, py: 2, m: 0, borderBottom: 1, borderColor: '#e0e0e0', position: 'relative', color: '#525151' }} > <NotificationsNoneIcon /><Box sx={{ position: 'absolute', left: '50px', display: 'inline-Block', }}>Remind me</Box></Box>
+                                    <Box className='hoverColor' component='p' sx={{ pl: 1, py: 2, m: 0, borderBottom: 1, borderColor: '#e0e0e0', position: 'relative', color: '#525151' }} > <CalendarTodayIcon /><Box sx={{ position: 'absolute', left: '50px', display: 'inline-Block', }}>Add due date</Box></Box>
+                                    <Box className='hoverColor' component='p' sx={{ pl: 1, py: 2, m: 0, position: 'relative', color: '#525151' }} > <EventNoteIcon /><Box sx={{ position: 'absolute', left: '50px', display: 'inline-Block', }}>Reapet</Box></Box>
+
+                                </Paper>
+                                <Paper >
+                                    <Box component='p' className='hoverColor' sx={{ px: 1, py: 2, position: 'relative', color: '#525151' }} > <LocalOfferIcon /><Box style={{ position: 'absolute', left: '50px', display: 'inline-Block', }}>Pick a category</Box></Box>
+                                </Paper>
+                                <Paper >
+                                    <Box component='p' className='hoverColor' sx={{ px: 1, py: 2, position: 'relative', color: '#525151' }} > <AttachFileIcon /><Box style={{ position: 'absolute', left: '50px', display: 'inline-Block', }}>Add File</Box></Box>
+                                </Paper>
+                                <Paper >
+                                    <Box component='p' sx={{ p: 1, position: 'relative', color: '#525151', height: '60px' }} >Add Note</Box>
+                                </Paper>
+                            </Box>
+                        </Box> :
+                        null
+                }
             </Box>
         </Box >
     )
