@@ -16,6 +16,7 @@ import { styled } from '@mui/material/styles';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import RightSideBar from '../../component/rightSidebar/RightSideBar';
+import Modal from '@mui/material/Modal';
 
 import {
     useWindowSize,
@@ -51,11 +52,20 @@ let monthName = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
 })
 let currentDate = date.getDate();
 
+// for model style
+const style = {
+    width: '320px',
+    height: '100vh',
+    bgcolor: 'background.paper',
+    boxShadow: 24,
+    zIndex: 300
+};
+
 
 export default function Home() {
     const [width, height] = useWindowSize()
-
-    const [openLeft, setOpenLeft] = useState(true)
+    const [open, setOpen] = React.useState(true);
+    const [openLeft, setOpenLeft] = useState(width >= 800 ? true : false)
     const [inputTask, setInputTask] = useState('')
     const [taskData, setTaskData] = useState([])
     const [updateIs, setUpdateIs] = useState(true)
@@ -67,12 +77,15 @@ export default function Home() {
     const [taskShow, setTaskShow] = useState(false)
     const [completedShow, setCompletedShow] = useState(false)
 
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false)
 
     const leftDivHandler = () => {
         setOpenLeft(false)
     }
     const leftDivHandlershow = () => {
         setOpenLeft(true)
+        setOpen(true)
     }
 
 
@@ -141,6 +154,24 @@ export default function Home() {
         setCompleteTask([...completeTask, compTask])
         setInputTask('')
         setUpdateIs(true)
+        setCompletedShow(true)
+        setRightBarOpen(false)
+        alert('Changed to Completed')
+        if (newTask.length === 0) {
+            setTaskShow(false)
+        }
+    }
+    const onChangeHandlerRight = (CompItem) => {
+        let compTask = {
+            id: CompItem.id,
+            taskDetail: CompItem.taskDetail
+        }
+
+        let newTask = taskData.filter((item) => item.id !== CompItem.id)
+        setTaskData(newTask)
+        setCompleteTask([...completeTask, compTask])
+        setInputTask('')
+        setUpdateIs(true)
         setRightBartextCheck(false)
         setCompletedShow(true)
         alert('Changed to Completed')
@@ -149,6 +180,24 @@ export default function Home() {
         }
     }
     const onChangeCompleteHandler = (unCompItem) => {
+        let unCompTask = {
+            id: unCompItem.id,
+            taskDetail: unCompItem.taskDetail
+        }
+
+        let newTask = completeTask.filter((item) => item.id !== unCompItem.id)
+        setCompleteTask(newTask)
+        setTaskData([unCompTask, ...taskData])
+        setInputTask('')
+        setUpdateIs(true)
+        setTaskShow(true)
+        setRightBarOpen(false)
+        alert('Changed to uncompleted task')
+        if (newTask.length === 0) {
+            setCompletedShow(false)
+        }
+    }
+    const onChangeCompleteHandlerRight = (unCompItem) => {
         let unCompTask = {
             id: unCompItem.id,
             taskDetail: unCompItem.taskDetail
@@ -202,13 +251,32 @@ export default function Home() {
 
                 {/* App bar box  */}
                 {openLeft ?
-                    <Box sx={{ height: '100%', minWidth: '250px', bgcolor: '#EAEAEA', pt: '70px', px: 1, boxSizing: 'border-box' }}>
-                        <IconBtn icon={<MenuIcon />} onClickHandler={leftDivHandler} btnStyle={{ marginLeft: { xs: '0', sm: '7px' } }} />
-                        <SideNavBar />
-                    </Box> :
-                    <Box sx={{ height: '100%', display: 'none', minWidth: '250px', bgcolor: '#EAEAEA', pt: '70px', px: 1, boxSizing: 'border-box' }}>
-                        <IconBtn icon={<MenuIcon />} onClickHandler={leftDivHandler} btnStyle={{ marginLeft: { xs: '0', sm: '7px' } }} />
-                    </Box>
+                    width >= 800 ?
+                        <Box sx={{ height: '100%', minWidth: '250px', bgcolor: '#EAEAEA', pt: '70px', px: 1, boxSizing: 'border-box' }}>
+                            <IconBtn icon={<MenuIcon />} onClickHandler={leftDivHandler} btnStyle={{ marginLeft: { xs: '0', sm: '7px' } }} />
+                            <SideNavBar />
+                        </Box> :
+                        // :<Box sx={{ height: '100%', display: 'none', minWidth: '250px', bgcolor: '#EAEAEA', pt: '70px', px: 1, boxSizing: 'border-box' }}>
+                        //     <IconBtn icon={<MenuIcon />} onClickHandler={leftDivHandler} btnStyle={{ marginLeft: { xs: '0', sm: '7px' } }} />
+                        // </Box> 
+                        <div>
+                            <Modal
+                                open={open}
+                                aria-labelledby="modal-modal-title"
+                                aria-describedby="modal-modal-description"
+                            >
+                                <Box sx={style}>
+                                    <Box sx={{ height: '100%', minWidth: '250px', bgcolor: '#EAEAEA', pt: '70px', px: 1, boxSizing: 'border-box' }}>
+                                        <IconBtn icon={<MenuIcon />} onClickHandler={leftDivHandler} btnStyle={{ marginLeft: { xs: '0', sm: '7px' } }} />
+                                        <SideNavBar />
+                                    </Box>
+                                    {/* <Box sx={{ height: '100%', display: 'none', minWidth: '250px', bgcolor: '#EAEAEA', pt: '70px', px: 1, boxSizing: 'border-box' }}>
+                                    <IconBtn icon={<MenuIcon />} onClickHandler={leftDivHandler} btnStyle={{ marginLeft: { xs: '0', sm: '7px' } }} />
+                                </Box> */}
+                                </Box>
+                            </Modal>
+                        </div> :
+                    null
                 }
 
 
@@ -228,7 +296,7 @@ export default function Home() {
                         <InputTask inputTask={inputTask} setInputTask={setInputTask} updateIs={updateIs} updateHandler={updateHandler} onSubmitHandler={onSubmitHandler} />
                     </Box>
                     <Box sx={{ px: 4, overflowY: 'auto', height: { xs: '45vh', md: '63vh' } }} >
-                    {taskShow? <Box component='h4' sx={{ my: 1 }}> Tasks  </Box>:null}
+                        {taskShow ? <Box component='h4' sx={{ my: 1 }}> Tasks  </Box> : null}
                         {
                             taskData.map((item) => {
                                 return (
@@ -250,7 +318,7 @@ export default function Home() {
                             })
                         }
                         <Box sx={{}}>
-                        {completedShow?<Box component='h4' sx={{ mb: 1, mt: 2 }}> Completed  </Box>:null}
+                            {completedShow ? <Box component='h4' sx={{ mb: 1, mt: 2 }}> Completed  </Box> : null}
                             {
                                 completeTask.map((item) => {
                                     return (
@@ -274,14 +342,13 @@ export default function Home() {
                 </Box>
                 {
                     rightBarOpen ?
-                        width >= 800 ?
-                            <RightSideBar rightBarText={rightBarText} rightBarHideHandler={rightBarHideHandler} rightBartextCheck={rightBartextCheck}
-                                onChangeHandler={onChangeHandler} onChangeCompleteHandler={onChangeCompleteHandler} onDeleteHandler={onDeleteHandler}
-                                onDeleteCompletedHandler={onDeleteCompletedHandler} /> :
-                            null :
+                        <RightSideBar rightBarText={rightBarText} rightBarHideHandler={rightBarHideHandler} rightBartextCheck={rightBartextCheck}
+                            onChangeHandlerRight={onChangeHandlerRight} onChangeCompleteHandlerRight={onChangeCompleteHandlerRight} onDeleteHandler={onDeleteHandler}
+                            onDeleteCompletedHandler={onDeleteCompletedHandler} /> :
                         null
                 }
             </Box>
+
         </Box >
     )
 }

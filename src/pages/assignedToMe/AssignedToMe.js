@@ -17,6 +17,12 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
+import {
+  useWindowSize,
+  useWindowWidth,
+  useWindowHeight,
+} from '@react-hook/window-size'
+import Modal from '@mui/material/Modal';
 
 
 // for tooltip
@@ -31,6 +37,14 @@ const BootstrapTooltip = styled(({ className, ...props }) => (
   },
 }));
 
+// for model style
+const style = {
+  width: '320px',
+  height: '100vh',
+  bgcolor: 'background.paper',
+  boxShadow: 24,
+  zIndex: 300
+};
 
 
 // custom date set
@@ -46,8 +60,16 @@ let monthName = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
 let currentDate = date.getDate();
 
 
-export default function Home() {
-  const [openLeft, setOpenLeft] = useState(true)
+export default function AssignedToMe() {
+  const [width, height] = useWindowSize()
+  const [openLeft, setOpenLeft] = useState( width >= 800? true : false)
+  const [open, setOpen] = React.useState(true);
+ 
+  
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false)
+
+
   // const [inputTask, setInputTask] = useState('')
   // const [taskData, setTaskData] = useState([])
   // const [updateIs, setUpdateIs] = useState(true)
@@ -148,13 +170,32 @@ export default function Home() {
 
         {/* App bar box  */}
         {openLeft ?
-          <Box sx={{ height: '100%', minWidth: '250px', bgcolor: '#EAEAEA', pt: '70px', px: 1, boxSizing: 'border-box' }}>
-            <IconBtn icon={<MenuIcon />} onClickHandler={leftDivHandler} btnStyle={{ marginLeft: { xs: '0', sm: '7px' } }} />
-            <SideNavBar />
-          </Box> :
-          <Box sx={{ height: '100%', display: 'none', minWidth: '250px', bgcolor: '#EAEAEA', pt: '70px', px: 1, boxSizing: 'border-box' }}>
-            <IconBtn icon={<MenuIcon />} onClickHandler={leftDivHandler} btnStyle={{ marginLeft: { xs: '0', sm: '7px' } }} />
-          </Box>
+          width >= 800 ?
+            <Box sx={{ height: '100%', minWidth: '250px', bgcolor: '#EAEAEA', pt: '70px', px: 1, boxSizing: 'border-box' }}>
+              <IconBtn icon={<MenuIcon />} onClickHandler={leftDivHandler} btnStyle={{ marginLeft: { xs: '0', sm: '7px' } }} />
+              <SideNavBar />
+            </Box> :
+            // :<Box sx={{ height: '100%', display: 'none', minWidth: '250px', bgcolor: '#EAEAEA', pt: '70px', px: 1, boxSizing: 'border-box' }}>
+            //     <IconBtn icon={<MenuIcon />} onClickHandler={leftDivHandler} btnStyle={{ marginLeft: { xs: '0', sm: '7px' } }} />
+            // </Box> 
+            <div>
+              <Modal
+                open={open}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={style}>
+                  <Box sx={{ height: '100%', minWidth: '250px', bgcolor: '#EAEAEA', pt: '70px', px: 1, boxSizing: 'border-box' }}>
+                    <IconBtn icon={<MenuIcon />} onClickHandler={leftDivHandler} btnStyle={{ marginLeft: { xs: '0', sm: '7px' } }} />
+                    <SideNavBar />
+                  </Box>
+                  {/* <Box sx={{ height: '100%', display: 'none', minWidth: '250px', bgcolor: '#EAEAEA', pt: '70px', px: 1, boxSizing: 'border-box' }}>
+                                    <IconBtn icon={<MenuIcon />} onClickHandler={leftDivHandler} btnStyle={{ marginLeft: { xs: '0', sm: '7px' } }} />
+                                </Box> */}
+                </Box>
+              </Modal>
+            </div> :
+          null
         }
 
 
@@ -195,7 +236,7 @@ export default function Home() {
                                                     <DeleteIcon />
                                                 </IconButton></Tooltip></Grid>
                                             </Grid> */}
-                      {/* </Grid>
+          {/* </Grid>
                     </Grid>
                   </Button>
                 )
